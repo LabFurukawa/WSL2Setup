@@ -26,7 +26,7 @@ If you want to know more, search with "vscode markdown" or refer to official doc
 
 これによりWindowsにおけるLinux開発の敷居は下がり、容易にLinuxコマンドも実行することが可能となっている。
 
-またWindows11から(厳密には10のInsider Preview)は`WSLg`というWindows上にサブシステムのLinuxからのウィンドウを表示することができるようになった。従来もWindows側に`X Server`を立てれば可能ではあったがそれを正式にサポートするようになった形である。
+またWindows11から(厳密には10のInsider Preview)は`WSLg`というWindows上にサブシステムのLinuxからのウィンドウを表示することができるようになった。従来もWindows側に`X Window`サーバーを立てれば可能ではあったがそれを正式にサポートするようになった形である。
 
 ただし、もし`WSL`を有効化するならば、当然通常よりメモリを消費すること、下の図のようにWindows自身も仮想化することによりWindowsのパフォーマンスも(感じるほどではないが)やや低下するということを頭に入れておきたい。
 
