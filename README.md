@@ -8,26 +8,36 @@ If you want to know more, search with "vscode markdown" or refer to official doc
 
 # WSL2 セットアップ
 
-Windows(Windows10 ver.2004以降)には`Windows Subsystem for Linux`の"バージョン2"、`WSL2`という機能が存在する。従来WindowsではコマンドプロンプトやPowerShellなどのCUI操作が可能である一方でUNIX系のコマンドやオープンソース開発のためのLinuxとの互換が期待されていた。
+`Windows Subsystem for Linux`、通称WSLはWindows上でLinuxの実行ファイルを実行するための機能である。
 
-そこでWindows 10の当初、Windowsのkernel上にLinuxライクなカーネルで構成されていた`WSL`の"バージョン1"が搭載された。しかし、この`WSL1`ではWindows kernel上に載っていることによる様々なボトルネック、そしてそもそもLinux kernelそのものでないことによる互換性の問題があった。
+ここでは`WSL`について説明した上で、そのバージョン2、`WSL2`の環境構築の手順について解説する。
 
-`WSL2`では下記の図右のようにWindowsそのものもHyper-Vという仮想化技術で仮想化しLinuxカーネルそのものを搭載することができるようになった。
+## WSLについて
 
-これによりWindowsにおけるLinux開発の敷居も下がり、容易にLinuxコマンドも実行することが可能となっている。
+従来WindowsではコマンドプロンプトやPowerShellなどのCUI操作が可能である一方で、UNIX系のコマンドやオープンソース開発のためのLinuxとの互換が期待されていた。
+
+そこでWindows10では当初、Windowsのkernel上にLinuxライクなkernelで構成されていた`WSL`の"バージョン1"、`WSL1`が搭載された。
+
+しかし、この`WSL1`ではWindows kernel上に載っていることによる様々なボトルネック、そしてそもそもLinux kernelそのものでないことによる互換性の問題があった。
+
+そしてWindows(Windows10 ver.2004以降)には`WSL2`がリリースされた。
+
+`WSL2`では下記の図右のようにWindowsそのものもHyper-Vという仮想化技術で仮想化しLinux kernelそのものを搭載することができるようになった。
+
+これによりWindowsにおけるLinux開発の敷居は下がり、容易にLinuxコマンドも実行することが可能となっている。
 
 またWindows11から(厳密には10のInsider Preview)はWSLgというWindows上にサブシステムのLinuxからのウィンドウを表示することができるようになった。従来もWindows側にX Serverを立てれば可能ではあったがそれを正式にサポートするようになった形である。
 
-ただし、もしWSLを有効化するならば、当然通常よりメモリを消費すること、下の図のようにWindows自身も仮想化することによりWindowsのパフォーマンスも(感じるほどではないが)やや低下するということを頭に入れておきたい。
+ただし、もし`WSL`を有効化するならば、当然通常よりメモリを消費すること、下の図のようにWindows自身も仮想化することによりWindowsのパフォーマンスも(感じるほどではないが)やや低下するということを頭に入れておきたい。
 
 メモリは8GBでも通常のWindowsの使用には問題がないが限界に近いので16GBは目安として搭載しているほうが良い。
 
 ![](./docs/image/wsl.png)
 
 
-## サブシステムのディストリビューションの概要
+## サブシステムのLinuxディストリビューションの概要
 
-サブシステムとして利用可能なLinuxなどのディストリビューションは管理者モードのPowerShellのコマンドからもダウンロード&インストール可能であるが普通はMicrosoft Storeから入れることが一般的だろう。
+サブシステムとして利用可能なLinuxディストリビューションは管理者モードのPowerShellのコマンドからもダウンロード&インストール可能であるが普通は`Microsoft Store`から入れることが一般的だろう。`Microsoft Store`でそのディストロの名前を検索すれば出てくる。
 
 入れることができるディストリビューションの一例
 - Ubuntu
@@ -36,65 +46,72 @@ Windows(Windows10 ver.2004以降)には`Windows Subsystem for Linux`の"バー�
 
 ちなみにWSL有効化前に入れると起動にコケたはずなので先に入れないように気を付ける。
 
-## WSLの有効化・インストール
+## WSLの有効化・Linuxの起動
 
-詳しい説明は公式ドキュメントを参照していただきたい。[WSL の基本的なコマンド](https://docs.microsoft.com/ja-jp/windows/wsl/basic-commands)
+詳しい説明は公式ドキュメントを参照していただきたい。
 
-やり方は2通り
+[WSL の基本的なコマンド](https://docs.microsoft.com/ja-jp/windows/wsl/basic-commands)
 
-1. コントロールパネルから
 
-	`コントロールパネル > プログラム > プログラムと機能 > Windowsの機能の有効化または無効化` から
-	
-	`Linux用Windowsサブシステム`にチェックを入れて有効化し再起動。
+1. インストール
 
-	![](./docs/image/WSLEnabling.png)
+	やり方は2通り
 
-2. PowerShellから
+	1. コントロールパネルから
 
-	PowerShell/Windows Terminalを"管理者として"実行
+		`コントロールパネル > プログラム > プログラムと機能 > Windowsの機能の有効化または無効化` から
+
+		`Linux用Windowsサブシステム`にチェックを入れて有効化し再起動。
+
+		![](./docs/image/WSLEnabling.png)
+
+	2. PowerShellから
+
+		PowerShell/Windows Terminalを"管理者として"実行
+
+		```PowerShell
+		wsl --install
+		```
+
+2. WSLのデフォルトバージョンを2に
+
+	PowerShell/Windows Terminalを管理者として実行。以下のコマンドを実行
 
 	```PowerShell
-	wsl --install
+	wsl --set-default-version 2
 	```
 
-## WSLのデフォルトバージョンを2に
+	もし変更を忘れても後から変換は可能。詳しくは公式ドキュメントで。
 
-PowerShell/Windows Terminalを管理者として実行。以下のコマンドを実行
+3. ディストリビューションのインストール
 
-```PowerShell
-wsl --set-default-version 2
-```
+	`Microsoft Store`からUbuntuなどを検索してダウンロード&インストール
 
-もし変更を忘れても後から変換は可能。詳しくは公式ドキュメントで。
+4. WSLのLinux起動
 
-## ディストリビューションのインストール
+	`Microsoft Store`からダウンロードしたのでスタートメニューにアイコンが表示されるからそのアイコンをクリックして起動。
 
-Microsoft StoreからUbuntuなどを検索してダウンロード&インストール
+	もしくは
 
-## WSLのLinux起動
-
-Microsoft Storeからダウンロードしたのでスタートメニューにアイコンが表示されるからそのアイコンをクリックして起動。
-
-もしくは
-
-Windows Terminalのタブの下矢印ボタンから追加したディストロを選択することで起動できる。
+	`Windows Terminal`のタブの下矢印ボタンから追加したディストロを選択することで起動できる。
 
 ## WSLのディレクトリの立ち位置
 
-Windows側のディレクトリはWSLから見ると"Cドライブ"の場合は"/mnt/c"にマウントされる形になっている。しかしWSLのホームディレクトリ"~"は"/home/_YOUR_NAME"なので気を付けていただきたい。
+Windows側のディレクトリはWSLから見ると"Cドライブ"の場合は"/mnt/c"にマウントされる形になっている。しかしWSLのホームディレクトリ"~"は"/home/\_LINUX\_USER\_NAME\_"なので気を付けていただきたい。
 
-Windowsのデスクトップ上でsource.cを作成し、
+例えばWindowsのデスクトップ上で右クリックからsource.cを作成すれば
 
-WSL Ubuntuでディレクトリを移動し
+WSL Ubuntuから`/mnt/c/Users/_WIN_USER_NAME_/Desktop/`を`cd`や`ls`で参照できる。
 ```
-cd /mnt/c/Users/_Your_Name_/Desktop/
+cd /mnt/c/Users/_WIN_USER_NAME_/Desktop/
 ```
-してから
+
+同様に、
+
 ```
 gcc source.c
 ```
-とすれば通常のUbuntu通り、`gcc`が実行できる。当然`gcc`は`apt`でインストールする必要はある。
+とすれば通常のUbuntu通り、`gcc`が実行できる。当然、`gcc`は`apt`でインストールする必要はある。
 
 ## WSLgの有効化
 
