@@ -8,7 +8,7 @@ If you want to know more, search with "vscode markdown" or refer to official doc
 
 # WSL2 セットアップ
 
-`Windows Subsystem for Linux`、通称WSLはWindows上でLinuxの実行ファイルを実行するための機能である。
+`Windows Subsystem for Linux`、通称`WSL`はWindows上でLinuxの実行ファイルを実行するための機能である。
 
 ここでは`WSL`について説明した上で、そのバージョン2、`WSL2`の環境構築の手順について解説する。
 
@@ -26,7 +26,7 @@ If you want to know more, search with "vscode markdown" or refer to official doc
 
 これによりWindowsにおけるLinux開発の敷居は下がり、容易にLinuxコマンドも実行することが可能となっている。
 
-またWindows11から(厳密には10のInsider Preview)はWSLgというWindows上にサブシステムのLinuxからのウィンドウを表示することができるようになった。従来もWindows側にX Serverを立てれば可能ではあったがそれを正式にサポートするようになった形である。
+またWindows11から(厳密には10のInsider Preview)は`WSLg`というWindows上にサブシステムのLinuxからのウィンドウを表示することができるようになった。従来もWindows側に`X Server`を立てれば可能ではあったがそれを正式にサポートするようになった形である。
 
 ただし、もし`WSL`を有効化するならば、当然通常よりメモリを消費すること、下の図のようにWindows自身も仮想化することによりWindowsのパフォーマンスも(感じるほどではないが)やや低下するということを頭に入れておきたい。
 
@@ -44,7 +44,7 @@ If you want to know more, search with "vscode markdown" or refer to official doc
 - Debian
 - openSUSE
 
-ちなみにWSL有効化前に入れると起動にコケたはずなので先に入れないように気を付ける。
+ちなみに`WSL`有効化前に入れると起動にコケたはずなので先に入れないように気を付ける。
 
 ## WSLの有効化・Linuxの起動
 
@@ -97,7 +97,7 @@ If you want to know more, search with "vscode markdown" or refer to official doc
 
 ## WSLのディレクトリの立ち位置
 
-Windows側のディレクトリはWSLから見ると"Cドライブ"の場合は"/mnt/c"にマウントされる形になっている。しかしWSLのホームディレクトリ"~"は"/home/\_LINUX\_USER\_NAME\_"なので気を付けていただきたい。
+Windows側のディレクトリは`WSL`から見ると"Cドライブ"の場合は"/mnt/c"にマウントされる形になっている。しかしWSLのホームディレクトリ"~"は"/home/\_LINUX\_USER\_NAME\_"なので気を付けていただきたい。
 
 例えばWindowsのデスクトップ上で右クリックからsource.cを作成すれば
 
